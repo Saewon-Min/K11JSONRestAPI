@@ -16,7 +16,7 @@ $(function () {
 		$.ajax({
 			type : "get",
 			url : '../restapi/boardView.do',
-			data : {num : $('#num').val()},
+			data : {num : $('#num').val()}, // 파라미터는 게시물의 일련번호
 			contentType : "text/html;charset:utf-8",
 			dataType : "json",
 			success : sucCallBack,
@@ -29,6 +29,8 @@ $(function () {
 });
 
 function sucCallBack(resData) {
+	
+	// 콜백 받은 데이터를 각각의 td태그에 삽입한다.
 	let tableData = "";
 	$('#td1').html(resData.num);
 	$('#td2').html(resData.id);

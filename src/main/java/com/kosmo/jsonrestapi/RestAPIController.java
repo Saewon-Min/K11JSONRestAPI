@@ -86,6 +86,7 @@ public class RestAPIController {
 	}
 	
 	
+	// 게시물 내용을 JSON으로 출력
 	@RequestMapping("/restapi/boardView.do")
 	@ResponseBody
 	public Map<String, String> modify(ParameterDTO parameterDTO){
@@ -93,6 +94,11 @@ public class RestAPIController {
 		ArrayList<BoardDTO> record = sqlSession.getMapper(IBoardDAO.class)
 				.view(parameterDTO);
 		Map<String, String> map = new HashMap<String, String>();
+		
+		/*
+		Mapper의 경우 select한 결과를 List컬렉션으로 반환하므로 이를
+		읽어서 Map컬렉션에 다시 저장해 준다.
+		 */
 		for(BoardDTO dto : record) {
 			
 			map.put("num", dto.getNum());
@@ -104,6 +110,7 @@ public class RestAPIController {
 			
 		}
 		
+		// Map컬렉션을 반환하면 JSON객체로 출력된다.
 		return map;
 		
 	}
