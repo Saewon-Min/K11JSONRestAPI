@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  
+	namespace를 통해 서비스 역할의 인터페이스와 연결한다.
+-->
+<mapper namespace="mybatis.IBoardDAO">
+
+	<!-- 쿼리 실행 후 반환타입은 정수이고 파라미터는 DTO객체를 통해 받아온다. -->
+   <select id="getTotalCount" resultType="int"
+		parameterType="mybatis.ParameterDTO">
+		SELECT COUNT(*) FROM board
+		<if test="searchTxt!=null"><!-- 검색어가 있는 경우에 -->
+			WHERE <!-- List컬렉션에 저장된 검색어의 개수만틈 반복하여 쿼리 추가 -->
+			<foreach collection="searchTxt" item="str" open="(" close=")"
+				separator="or">
+				${searchField} LIKE '%'||#{str}||'%'
+			</foreach>
+		</if>
+	</select>
+
+
+
+	
+	<select id="listPage" resultType="mybatis.BoardDTO"
+		parameterType="mybatis.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM(
+				SELECT * FROM board 
+				<if test="searchTxt!=null">
+					WHERE 
+					<foreach collection="searchTxt" item="str" open="(" close=")"
+						separator="or">
+						${searchField} LIKE '%'||#{str}||'%'						
+					</foreach>
+				</if>
+				
+				ORDER BY num DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN #{start} AND #{end}
+	</select>   
+	
+	<select id="view" resultType="mybatis.BoardDTO"
+		parameterType="mybatis.ParameterDTO">
+		SELECT * FROM board WHERE num=#{num}	
+	</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
