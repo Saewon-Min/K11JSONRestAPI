@@ -89,7 +89,7 @@ public class RestAPIController {
 	// 게시물 내용을 JSON으로 출력
 	@RequestMapping("/restapi/boardView.do")
 	@ResponseBody
-	public Map<String, String> modify(ParameterDTO parameterDTO){
+	public Map<String, String> view(ParameterDTO parameterDTO){
 		
 		ArrayList<BoardDTO> record = sqlSession.getMapper(IBoardDAO.class)
 				.view(parameterDTO);
@@ -103,7 +103,7 @@ public class RestAPIController {
 			
 			map.put("num", dto.getNum());
 			map.put("title", dto.getTitle());
-			map.put("content", dto.getContent());
+			map.put("content", dto.getContent().replace("\r\n", "\\r\\n")); //줄바꿈처리
 			map.put("id", dto.getId());
 			map.put("postdate", dto.getPostdate().toString());
 			map.put("visitcount", dto.getVisitcount());

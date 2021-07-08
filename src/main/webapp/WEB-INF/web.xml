@@ -29,5 +29,14 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	
+	
+	<filter>
+		<filter-name>corsFilter</filter-name>
+		<filter-class>com.kosmo.jsonrestapi.SimpleCORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>corsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
