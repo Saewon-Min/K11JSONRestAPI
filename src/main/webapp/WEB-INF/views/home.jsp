@@ -37,8 +37,12 @@
 		</a>
 	</li>
 
-
-
+	<h2>회원 리스트 JSON으로 출력하기</h2>
+	<a href="./android/memberObject.do">
+	회원 리스트 가져오기(객체형태)</a>
+	<br />
+	<a href="./android/memberList.do">
+	회원 리스트 가져오기(배열형태)</a>
 
 
 
